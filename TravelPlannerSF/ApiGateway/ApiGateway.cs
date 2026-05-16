@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Fabric;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.ServiceFabric.Services.Communication.AspNetCore;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
@@ -22,6 +23,11 @@ namespace ApiGateway
                     {
                         return new WebHostBuilder()
                             .UseKestrel()
+                            .ConfigureAppConfiguration((context, config) =>
+                            {
+                                config.SetBasePath(Directory.GetCurrentDirectory());
+                                config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+                            })
                             .ConfigureServices(services => services.AddSingleton(serviceContext))
                             .UseContentRoot(Directory.GetCurrentDirectory())
                             .UseStartup<Startup>()
