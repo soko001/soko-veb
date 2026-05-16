@@ -1,0 +1,15 @@
+# Build outputs
+bin/
+obj/
+pkg/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# SF local cluster
+*.sfpkg
+
+# Secrets - add appsettings overrides with real passwords
+**/appsettings.Development.json
