@@ -4,6 +4,7 @@ using UserService.DTOs;
 using UserService.Models;
 using System;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace UserService.Services
 {
@@ -18,11 +19,13 @@ namespace UserService.Services
     {
         private readonly UserDbContext _db;
         private readonly IJwtService _jwt;
+        private readonly IConfiguration _config;
 
-        public AuthService(UserDbContext db, IJwtService jwt)
+        public AuthService(UserDbContext db, IJwtService jwt, IConfiguration config)
         {
             _db = db;
             _jwt = jwt;
+            _config = config;
         }
 
         public async Task<AuthResponseDto> RegisterAsync(RegisterDto dto)
@@ -30,13 +33,18 @@ namespace UserService.Services
             if (await _db.Users.AnyAsync(u => u.Email == dto.Email.ToLower()))
                 throw new InvalidOperationException("Email already in use.");
 
+            var adminSecret = _config["AdminSecret"];
+            var role = (!string.IsNullOrEmpty(dto.AdminKey) && dto.AdminKey == adminSecret)
+                ? UserRole.Admin
+                : UserRole.User;
+
             var user = new User
             {
                 FirstName = dto.FirstName,
                 LastName = dto.LastName,
                 Email = dto.Email.ToLower(),
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
-                Role = UserRole.User
+                Role = role
             };
 
             _db.Users.Add(user);

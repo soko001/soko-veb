@@ -1,31 +1,19 @@
 import api from './api';
-import type { TravelPlan, User } from '../models/types';
+import type { User, TravelPlan } from '../models/types';
 
 export const adminService = {
-  getAllPlans: async (): Promise<TravelPlan[]> => {
-    const response = await api.get<TravelPlan[]>('/api/admin/travel-plans');
-    return response.data;
-  },
-
-  getPlanById: async (id: number): Promise<TravelPlan> => {
-    const response = await api.get<TravelPlan>(`/api/admin/travel-plans/${id}`);
-    return response.data;
-  },
-
-  deletePlan: async (id: number): Promise<void> => {
-    await api.delete(`/api/admin/travel-plans/${id}`);
-  },
-
   getAllUsers: async (): Promise<User[]> => {
-    const response = await api.get<User[]>('/api/users');
-    return response.data;
+    const res = await api.get<User[]>('/api/admin/users');
+    return res.data;
   },
-
-  deleteUser: async (id: number): Promise<void> => {
-    await api.delete(`/api/users/${id}`);
+  getAllPlans: async (): Promise<TravelPlan[]> => {
+    const res = await api.get<TravelPlan[]>('/api/admin/travel-plans');
+    return res.data;
   },
-
-  deactivateUser: async (id: number): Promise<void> => {
-    await api.put(`/api/users/${id}/deactivate`);
+  deactivateUser: async (userId: number): Promise<void> => {
+    await api.put(`/api/users/${userId}/deactivate`);
+  },
+  deletePlan: async (planId: number): Promise<void> => {
+    await api.delete(`/api/admin/travel-plans/${planId}`);
   }
 };

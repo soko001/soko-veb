@@ -23,5 +23,10 @@ namespace ApiGateway.Controllers
 
         [HttpDelete("{id}")]
         public Task<IActionResult> Delete(int id) => Forward($"api/users/{id}");
+        [HttpPut("{id}/deactivate")]
+        public Task<IActionResult> Deactivate(int id) => Forward($"api/users/{id}/deactivate");
+
+        [HttpGet("/api/admin/users")]
+        public Task<IActionResult> AdminGetAll() => Forward("api/users");
     }
 }

@@ -60,7 +60,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const isAdmin = () => {
-    return user?.role === 'Admin';
+    return user?.role?.toLowerCase() === 'admin';
   };
 
   return (

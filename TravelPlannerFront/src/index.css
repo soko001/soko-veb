@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Syne:wght@600;700;800&display=swap');
+@import 'leaflet/dist/leaflet.css';
+@import "tailwindcss";
+
+@theme {
+  --color-navy:        #0D1B2A;
+  --color-navy-light:  #162236;
+  --color-surface:     #1C2E42;
+  --color-surface-2:   #243650;
+  --color-border:      #2E4460;
+  --color-teal:        #0EA5B0;
+  --color-teal-light:  #22D3E0;
+  --color-slate:       #94A8C0;
+  --color-mist:        #D0DDE9;
+  --color-snow:        #EEF4FA;
+  --color-amber:       #F59E0B;
+  --color-danger:      #EF4444;
+
+  --font-display:      'Syne', 'Space Grotesk', sans-serif;
+  --font-body:         'Inter', sans-serif;
+  --font-label:        'Space Grotesk', sans-serif;
+  --font-functional:   'Inter', sans-serif;
+  --font-mono:         'JetBrains Mono', monospace;
+}
+
+@layer base {
+  body {
+    @apply bg-navy text-mist font-body min-h-screen antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display tracking-tight;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #162236;
+}
+::-webkit-scrollbar-thumb {
+  background: #2E4460;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #0EA5B0;
+}
