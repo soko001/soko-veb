@@ -12,12 +12,6 @@ namespace ApiGateway.Controllers
         public UsersProxyController(IHttpProxyService proxy, IConfiguration config)
             : base(proxy, config["Services:UserService"]) { }
 
-        [HttpPost("register")]
-        public Task<IActionResult> Register() => Forward("api/users/register");
-
-        [HttpPost("login")]
-        public Task<IActionResult> Login() => Forward("api/users/login");
-
         [HttpGet("{id}")]
         public Task<IActionResult> GetById(int id) => Forward($"api/users/{id}");
 

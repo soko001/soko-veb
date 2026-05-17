@@ -90,5 +90,14 @@ namespace ApiGateway.Controllers
 
         [HttpDelete("{planId}/checklist/{id}")]
         public Task<IActionResult> DeleteChecklistItem(int planId, int id) => Forward($"api/travel-plans/{planId}/checklist/{id}");
+    
+        [HttpGet("/api/admin/travel-plans")]
+        public Task<IActionResult> AdminGetAll() => Forward("api/admin/travel-plans");
+
+        [HttpGet("/api/admin/travel-plans/{id}")]
+        public Task<IActionResult> AdminGetById(int id) => Forward($"api/admin/travel-plans/{id}");
+
+        [HttpDelete("/api/admin/travel-plans/{id}")]
+        public Task<IActionResult> AdminDelete(int id) => Forward($"api/admin/travel-plans/{id}");
     }
 }
